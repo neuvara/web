@@ -14,6 +14,7 @@ const eslintConfig = [
   {
     ignores: [
       ".next/**",
+      "_next/**",
       "github-web-upload/**",
       "github-web-upload*/**",
       "node_modules/**",
