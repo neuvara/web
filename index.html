@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neuvara</title>
+<meta name="description" content="Neuvara is a UK research-stage company working on physics-informed normalisation for multi-site brain MRI, reducing scanner-driven variance while preserving biological signal.">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#07111f;
+  --navy-2:#0b1a2d;
+  --blue:#69b8ff;
+  --teal:#48d4c0;
+  --cyan:#b8edff;
+  --purple:#a96bc8;
+  --slate-300:#cbd5e1;
+  --slate-400:#94a3b8;
+  --slate-500:#64748b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:7.25rem}
+@media (min-width:768px){[id]{scroll-margin-top:5rem}}
+body{
+  margin:0;min-height:100vh;color:#fff;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(72,212,192,.13), transparent 27rem),
+    radial-gradient(circle at 88% 14%, rgba(105,184,255,.15), transparent 29rem),
+    linear-gradient(180deg,#07111f 0%,#0b1a2d 46%,#07111f 100%);
+}
+::selection{background:rgba(72,212,192,.28)}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:80rem;margin:0 auto;padding:0 1.25rem}
+@media (min-width:640px){.wrap{padding:0 2rem}}
+.balance{text-wrap:balance}
+
+/* header */
+header.site{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  background:rgba(7,17,31,.9);
+  backdrop-filter:blur(24px);
+  box-shadow:0 16px 44px rgba(0,0,0,.2);
+}
+header.site nav.main{display:flex;align-items:center;justify-content:space-between;height:4rem}
+.logo{display:inline-flex;align-items:center;gap:.625rem;font-size:1.25rem;font-weight:600;text-decoration:none}
+.logo img{height:28px;width:auto}
+.links{display:none;gap:1.75rem;align-items:center}
+@media (min-width:768px){.links{display:flex}}
+.nav-link{position:relative;font-size:.875rem;font-weight:500;color:var(--slate-300);text-decoration:none;transition:color .3s}
+.nav-link:hover,.nav-link:focus-visible{color:#fff}
+.nav-link::after{content:"";position:absolute;bottom:-.45rem;left:0;height:1px;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--teal),var(--cyan));transition:transform .26s}
+.nav-link:hover::after,.nav-link:focus-visible::after{transform:scaleX(1)}
+nav.mobile{display:flex;gap:.5rem;justify-content:space-between;overflow-x:auto;padding:.75rem 0;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+nav.mobile a{color:var(--slate-300);text-decoration:none;flex-shrink:0}
+nav.mobile a:hover{color:#fff}
+.mobile-bar{border-top:1px solid rgba(255,255,255,.1)}
+@media (min-width:768px){.mobile-bar{display:none}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;padding:0 1.25rem;border-radius:999px;font-size:.875rem;font-weight:600;text-decoration:none;transition:all .3s}
+@media (min-width:640px){.btn{min-height:3rem;padding:0 1.5rem}}
+.btn-primary{background:var(--teal);color:var(--navy);box-shadow:0 10px 30px rgba(72,212,192,.2)}
+.btn-primary:hover{transform:translateY(-2px);background:#65ead9}
+.btn-secondary{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#fff;backdrop-filter:blur(8px)}
+.btn-secondary:hover{transform:translateY(-2px);border-color:rgba(184,237,255,.45);background:rgba(255,255,255,.12)}
+.btn:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+/* sections */
+section{position:relative;isolation:isolate;padding:5rem 0}
+@media (min-width:1024px){section{padding:7rem 0}}
+.eyebrow{margin:0 0 .75rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--teal)}
+.sec-title{font-size:1.875rem;line-height:1.25}
+@media (min-width:640px){.sec-title{font-size:2.25rem}}
+.sec-body{margin-top:1rem;font-size:1rem;line-height:2;color:var(--slate-300)}
+@media (min-width:640px){.sec-body{font-size:1.125rem}}
+.head{max-width:48rem}
+.head.center{margin:0 auto;text-align:center}
+
+/* hero */
+#home{padding-top:9rem;padding-bottom:3.5rem;overflow:hidden}
+.aurora{position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(circle at 72% 20%, rgba(72,212,192,.28), transparent 29rem),
+    radial-gradient(circle at 16% 14%, rgba(105,184,255,.22), transparent 28rem),
+    radial-gradient(circle at 48% 54%, rgba(104,92,255,.12), transparent 34rem),
+    linear-gradient(135deg,#07111f 0%,#0b1a2d 48%,#07111f 100%);
+  animation:auroraDrift 16s ease-in-out infinite alternate;
+}
+.mesh{position:absolute;inset:0;z-index:-1;opacity:.75;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:linear-gradient(180deg,black,transparent);
+  mask-image:linear-gradient(180deg,black,transparent);
+}
+.hero-grid{display:grid;gap:3rem;align-items:center}
+@media (min-width:1024px){.hero-grid{grid-template-columns:.98fr 1.02fr}}
+h1.hero{font-size:2.35rem;line-height:1.04;max-width:56rem}
+@media (min-width:640px){h1.hero{font-size:3.75rem;line-height:1.06}}
+h1.hero .grad{display:block;background:linear-gradient(90deg,#fff,var(--cyan),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-p{margin-top:1.75rem;max-width:36rem;font-size:1rem;line-height:1.75;color:var(--slate-300)}
+@media (min-width:640px){.hero-p{font-size:1.125rem;line-height:2}}
+.hero-cta{margin-top:2.25rem;display:flex;flex-direction:column;gap:.75rem}
+@media (min-width:640px){.hero-cta{flex-direction:row}}
+.hero-meta{margin-top:2rem;font-size:.875rem;color:var(--slate-400)}
+
+/* surfaces */
+.surface{position:relative;overflow:hidden;border:1px solid rgba(184,237,255,.14);border-radius:1.75rem;
+  background:linear-gradient(135deg,rgba(255,255,255,.088),rgba(255,255,255,.026)),rgba(7,17,31,.56);
+  box-shadow:0 28px 90px rgba(0,0,0,.26);backdrop-filter:blur(18px)}
+.card{position:relative;overflow:hidden;border:1px solid rgba(184,237,255,.12);border-radius:1rem;padding:1.75rem;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),rgba(7,17,31,.58);
+  box-shadow:0 22px 70px rgba(0,0,0,.22);backdrop-filter:blur(14px);
+  transition:transform .36s,border-color .36s,box-shadow .36s}
+.card:hover{transform:translateY(-4px);border-color:rgba(105,184,255,.42);box-shadow:0 28px 84px rgba(0,0,0,.3)}
+.card h3{font-size:1rem}
+.card p{margin-top:.75rem;font-size:.875rem;line-height:1.75;color:var(--slate-300)}
+.card .note{margin-top:1.25rem;font-size:.75rem;line-height:1.5;color:var(--slate-500)}
+
+/* hero visual */
+.viz{padding:1rem;max-width:32rem;margin:0 auto}
+.viz-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:.75rem;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.1);font-size:.75rem;color:var(--slate-300)}
+.viz-head strong{color:#fff;font-weight:600}
+.viz-head span{color:var(--cyan)}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.panel{position:relative;aspect-ratio:1;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:1rem;background:var(--navy)}
+.panel .grid-bg{position:absolute;inset:0;opacity:.55;
+  background-image:linear-gradient(rgba(184,237,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(184,237,255,.12) 1px,transparent 1px);
+  background-size:26px 26px}
+.panel .inner{position:absolute;inset:1rem;border:1px solid rgba(184,237,255,.2);border-radius:1.25rem}
+.panel .blob{position:absolute;left:16%;top:14%;height:72%;width:68%;border-radius:48%}
+.panel svg{position:absolute;inset:0;height:100%;width:100%}
+.panel .tag{position:absolute;left:.75rem;top:.75rem;border:1px solid rgba(255,255,255,.1);background:rgba(7,17,31,.8);border-radius:.5rem;padding:.25rem .5rem;font-size:.65rem;color:var(--slate-300)}
+.measure{margin-top:1rem;border:1px solid rgba(255,255,255,.1);border-radius:1rem;background:rgba(255,255,255,.04);padding:1rem}
+.measure .lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--teal)}
+.bar-row{display:flex;align-items:center;gap:.75rem;margin-top:.75rem}
+.bar-row span:first-child{width:4rem;flex-shrink:0;font-size:.65rem;color:var(--slate-400)}
+.bar{height:.5rem;border-radius:999px}
+.measure .foot{margin-top:1rem;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;line-height:1.5;color:var(--slate-300)}
+.disclaimer{margin-top:1rem;font-size:.68rem;line-height:1.4;color:var(--slate-400)}
+
+/* problem list */
+.split{display:grid;gap:3rem;align-items:start}
+@media (min-width:1024px){.split{grid-template-columns:.85fr 1.15fr}}
+.accent{padding:1.25rem 0 1.25rem 1.75rem;border-left:2px solid rgba(72,212,192,.4);transition:border-color .3s}
+.accent:hover{border-color:rgba(72,212,192,.85)}
+.accent h3{font-size:1rem}
+.accent p{margin-top:.5rem;font-size:.875rem;line-height:1.75;color:var(--slate-300)}
+
+.cards-3{display:grid;gap:1.25rem;margin-top:3.5rem}
+@media (min-width:768px){.cards-3{grid-template-columns:repeat(3,1fr)}}
+.cards-2{display:grid;gap:1.5rem;margin-top:3rem;align-items:start}
+@media (min-width:1024px){.cards-2{grid-template-columns:1fr 1fr}}
+
+/* status */
+.status-box{padding:2rem}
+@media (min-width:640px){.status-box{padding:3rem}}
+.stats{display:grid;gap:1rem;margin-top:2.25rem}
+@media (min-width:640px){.stats{grid-template-columns:repeat(3,1fr)}}
+.stat{padding:1.25rem 1.5rem;border-radius:1rem;background:rgba(255,255,255,.04);transition:background-color .3s}
+.stat:hover{background:rgba(255,255,255,.07)}
+.stat p:first-child{font-size:.875rem;font-weight:600}
+.stat p:last-child{margin-top:.25rem;font-size:.75rem;line-height:1.5;color:var(--slate-400)}
+.founders{display:grid;gap:1.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1)}
+@media (min-width:640px){.founders{grid-template-columns:1fr 1fr}}
+.founder .name{font-size:1rem;font-weight:600}
+.founder .role{margin-top:.25rem;font-size:.875rem;line-height:1.5;color:var(--slate-400)}
+.founder a{display:inline-block;margin-top:.5rem;font-size:.875rem;color:var(--cyan);text-decoration:none}
+.founder a:hover{color:#fff}
+
+/* contact + footer */
+.contact-wrap{max-width:48rem;margin:0 auto;text-align:center}
+.contact-wrap .btn{margin-top:2.25rem}
+footer{border-top:1px solid rgba(255,255,255,.1);padding:2.5rem 0;font-size:.75rem}
+.foot-row{display:flex;flex-direction:column;gap:1rem}
+@media (min-width:640px){.foot-row{flex-direction:row;align-items:center;justify-content:space-between}}
+.foot-row .brand{font-size:.875rem;font-weight:600}
+.foot-row .disc{max-width:36rem;line-height:1.5;color:var(--slate-400)}
+.foot-links{display:flex;gap:1.25rem;color:var(--slate-400)}
+.foot-links a{text-decoration:none}
+.foot-links a:hover{color:#fff}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:80ms}.d2{transition-delay:160ms}.d3{transition-delay:240ms}
+.rise{animation:rise .76s cubic-bezier(.22,1,.36,1) both}
+.r1{animation-delay:110ms}.r2{animation-delay:220ms}.r3{animation-delay:330ms}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes auroraDrift{0%{background-position:0 0;filter:saturate(1)}100%{background-position:4% 3%;filter:saturate(1.12)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <nav class="main" aria-label="Primary">
+      <a class="logo" href="#home" aria-label="Neuvara home">
+        <img src="/logo.png" alt="" aria-hidden="true">Neuvara
+      </a>
+      <div class="links">
+        <a class="nav-link" href="#problem">Problem</a>
+        <a class="nav-link" href="#approach">Approach</a>
+        <a class="nav-link" href="#status">Where we are</a>
+        <a class="nav-link" href="#direction">Direction</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+  <div class="mobile-bar">
+    <div class="wrap">
+      <nav class="mobile" aria-label="Mobile navigation">
+        <a href="#problem">Problem</a>
+        <a href="#approach">Approach</a>
+        <a href="#status">Where we are</a>
+        <a href="#direction">Direction</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="home">
+  <div class="aurora"></div>
+  <div class="mesh"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="hero balance rise r1">
+        Multi-site brain MRI has a
+        <span class="grad">measurement problem</span>
+      </h1>
+      <p class="hero-p rise r2">
+        Scanner differences can produce variation comparable in size to the
+        biological change a study is trying to measure. Neuvara works on
+        physics-informed normalisation: reducing scanner-driven variance while
+        preserving biological signal.
+      </p>
+      <div class="hero-cta rise r3">
+        <a class="btn btn-primary" href="#problem">See the problem</a>
+        <a class="btn btn-secondary" href="mailto:contact@neuvara.org">contact@neuvara.org</a>
+      </div>
+      <p class="hero-meta rise r3">UK-based &middot; Research-stage &middot; Two founders</p>
+    </div>
+
+    <div class="surface viz rise r2">
+      <div class="viz-head"><strong>Same subject, same week</strong><span>Two scanners</span></div>
+      <div class="panels">
+        <div class="panel">
+          <div class="grid-bg"></div><div class="inner"></div>
+          <div class="blob" style="background:radial-gradient(circle at 50% 50%,rgba(184,237,255,.34),rgba(105,184,255,.14) 46%,transparent 74%)"></div>
+          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+            <path d="M42 72c21-23 53-27 80-10M36 95c29-13 58-11 87 8M48 121c26 8 54 5 84-11M79 49c-13 25-14 50-3 76M112 52c13 26 13 55 0 84" stroke="#B8EDFF" stroke-width="2" stroke-linecap="round" opacity=".68"/>
+            <path d="M65 93c16-7 34-7 52 1" stroke="#48D4C0" stroke-width="2.5" stroke-linecap="round" opacity=".9"/>
+          </svg>
+          <span class="tag">Scanner A</span>
+        </div>
+        <div class="panel">
+          <div class="grid-bg"></div><div class="inner"></div>
+          <div class="blob" style="background:radial-gradient(circle at 50% 50%,rgba(169,107,200,.3),rgba(105,184,255,.14) 46%,transparent 74%)"></div>
+          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+            <g transform="translate(90 90) scale(.92) translate(-90 -90)">
+              <path d="M42 72c21-23 53-27 80-10M36 95c29-13 58-11 87 8M48 121c26 8 54 5 84-11M79 49c-13 25-14 50-3 76M112 52c13 26 13 55 0 84" stroke="#B8EDFF" stroke-width="2" stroke-linecap="round" opacity=".68"/>
+              <path d="M65 93c16-7 34-7 52 1" stroke="#48D4C0" stroke-width="2.5" stroke-linecap="round" opacity=".9"/>
+            </g>
+          </svg>
+          <span class="tag">Scanner B</span>
+        </div>
+      </div>
+      <div class="measure">
+        <p class="lbl">Measured volume</p>
+        <div class="bar-row"><span>Scanner A</span><span class="bar" style="width:78%;background:rgba(72,212,192,.7)"></span></div>
+        <div class="bar-row"><span>Scanner B</span><span class="bar" style="width:63%;background:rgba(169,107,200,.7)"></span></div>
+        <p class="foot">Anatomy unchanged. The measurement is not.</p>
+      </div>
+      <p class="disclaimer">Illustrative only. Not real patient data, and not a Neuvara result.</p>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="wrap split reveal">
+    <div class="head">
+      <p class="eyebrow">The problem</p>
+      <h2 class="sec-title balance">The same patient does not produce the same numbers.</h2>
+      <p class="sec-body">Scanned on two different machines, one subject yields two different measurements. That blocks pooling across sites, limits how far a trained model generalises, and makes change over time harder to trust.</p>
+    </div>
+    <div>
+      <div class="accent"><h3>What varies</h3><p>Multi-site brain MRI is affected by scanner manufacturer, field strength, sequence timing, protocol, and software version. Those differences change measured volumes and image-derived features even when the underlying anatomy is unchanged.</p></div>
+      <div class="accent"><h3>Why it matters</h3><p>In longitudinal studies the signal of interest is often small. Annual brain atrophy in neurodegenerative disease is a subtle change. A scanner change can be larger than that change.</p></div>
+      <div class="accent"><h3>The tension</h3><p>If scanner variance is left in the measure, it can obscure biology. If correction removes biological signal along with it, the measure looks cleaner while becoming less useful.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Approach</p>
+      <h2 class="sec-title balance">Whether biological signal survives the correction.</h2>
+      <p class="sec-body">The question is not only whether scanner information can be reduced. A method that removes scanner variance and biology together is easy to build and looks tidy. It is not useful.</p>
+    </div>
+    <div class="cards-3">
+      <div class="card reveal d1"><h3>Physics first</h3><p>Scanner differences are physical in origin: field inhomogeneity, gradient nonlinearity, vendor reconstruction, noise structure from parallel imaging. We model those mechanisms rather than applying statistical correction after the fact.</p></div>
+      <div class="card reveal d2"><h3>Fixed function, not fitted to the cohort</h3><p>The mapping is intended to be inductive: the same scan produces the same output regardless of which other scans it is processed alongside. Many existing methods refit against the cohort, so a previously reported value can move when new subjects arrive.</p></div>
+      <div class="card reveal d3"><h3>A stated operating envelope</h3><p>We are not trying to build a universal normaliser. The intended scope is written down as a specification &mdash; sequence, field strength, vendor &mdash; and widened one axis at a time, with validation attached to each step.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap">
+    <div class="surface status-box reveal">
+      <div class="head">
+        <p class="eyebrow">Where we are</p>
+        <h2 class="sec-title balance">A UK research-stage company, run by two founders.</h2>
+        <p class="sec-body">We have no product, no deployments, and no published results yet. Everything on this page describes work in progress, not a capability we are offering today.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><p>United Kingdom</p><p>One private limited company</p></div>
+        <div class="stat"><p>Research-stage</p><p>Method development and benchmarking</p></div>
+        <div class="stat"><p>Two founders</p><p>MRI physics and clinical translation</p></div>
+      </div>
+      <div class="founders">
+        <div class="founder">
+          <p class="name">Joshua Stromayer</p>
+          <p class="role">MRI physics, normalisation, infrastructure</p>
+          <a href="mailto:joshua@neuvara.org">joshua@neuvara.org</a>
+        </div>
+        <div class="founder">
+          <p class="name">Baris Sucu</p>
+          <p class="role">Disease biology, clinical translation</p>
+          <a href="mailto:baris@neuvara.org">baris@neuvara.org</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="direction">
+  <div class="wrap">
+    <div class="head center reveal">
+      <p class="eyebrow">Direction</p>
+      <h2 class="sec-title balance">Where this could go.</h2>
+    </div>
+    <div class="cards-2">
+      <div class="card reveal d1"><h3>Primary direction</h3><p>Imaging measures for multi-site studies and clinical trials: measures that stay stable when a participant changes scanner, so that site differences do not have to be absorbed as noise.</p></div>
+      <div class="card reveal d2"><h3>Longer term</h3><p>Scanner-invariant representations may support diagnostic research in rare neurological disease, where cases are scattered across sites and scanners and cannot currently be compared.</p><p class="note">Research direction, not a current capability</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap reveal">
+      <p class="eyebrow">Contact</p>
+      <h2 class="sec-title balance">Get in touch.</h2>
+      <p class="sec-body">We are interested in talking to people working on multi-site imaging, whether or not there is anything to sell yet. The fastest way to reach us is by email.</p>
+      <a class="btn btn-primary" href="mailto:contact@neuvara.org">contact@neuvara.org</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <p class="brand">Neuvara</p>
+    <p class="disc">Neuvara is not a medical device and is not intended for clinical use.</p>
+    <div class="foot-links">
+      <span>&copy; 2026 Neuvara</span>
+      <a class="nav-link" href="/privacy/">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('in')});
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}
+    });
+  },{rootMargin:'0px 0px -12% 0px',threshold:.12});
+  els.forEach(function(el){obs.observe(el)});
+})();
+</script>
+
+</body>
+</html>
