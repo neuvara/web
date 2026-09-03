@@ -1,7 +1,7 @@
 {
   "name": "neuvara-website",
   "version": "0.1.0",
-  "description": "Public website for Neuvara's research-stage rare disease MRI intelligence platform.",
+  "description": "Public website for Neuvara, a UK research-stage company working on physics-informed normalisation for multi-site brain MRI.",
   "private": true,
   "license": "MIT",
   "scripts": {
