@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cross-scanner audit — Neuvara</title>
+<meta name="description" content="A fixed-price audit of how your brain MRI model performs across scanner vendors, field strengths and protocols, with the failure cases and their physical causes.">
+<meta property="og:title" content="Cross-scanner audit — Neuvara">
+<meta property="og:description" content="Find out where your MRI model breaks before a new site does.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neuvara.org/audit/">
+<meta name="theme-color" content="#07111f">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<noscript><link rel="stylesheet" href="/css/noscript.css"></noscript>
+</head>
+<body>
+
+<header class="site-bar">
+  <div class="site wrap has-menu">
+    <a class="brand" href="/" aria-label="Neuvara home">
+      <img src="/logo.png" alt="" width="26" height="26">
+      <span>Neuvara</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="menu-icon" aria-hidden="true"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="primary-nav" aria-label="Primary">
+      <a href="/audit/" aria-current="page">Audit</a>
+      <a href="/rankings/">Rankings</a>
+      <a href="/#data">Data preparation</a>
+      <a href="/#team">Team</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero wrap">
+    <div>
+      <p class="label"><span class="idx">01</span>Cross-scanner audit</p>
+      <h1>Find out where your model breaks <span class="muted">before <em class="c-purple">a new site</em> does.</span></h1>
+      <p class="lede">
+        A model that scores well on its validation set can drop sharply on a
+        scanner it has not seen. We test your brain MRI model across vendors,
+        field strengths and protocols, then show you where performance shifts,
+        on which scans, and what is physically causing it.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/contact/?topic=audit">Request an audit</a>
+        <a class="btn btn-ghost" href="#how">How it runs</a>
+      </div>
+    </div>
+
+    <aside class="outline" aria-label="Report contents">
+      <p class="outline-head"><span>Audit report</span><span>Contents</span></p>
+      <ol>
+        <li><span>1</span>Summary and recommendations</li>
+        <li><span>2</span>Performance by vendor</li>
+        <li><span>3</span>Performance by field strength</li>
+        <li><span>4</span>Performance by protocol</li>
+        <li class="new"><span>5</span>Position against ranked models</li>
+        <li><span>6</span>Failure cases, with images</li>
+        <li><span>7</span>Likely physical causes</li>
+        <li><span>8</span>Method and datasets used</li>
+      </ol>
+      <p class="outline-foot">The structure every report follows.</p>
+    </aside>
+  </section>
+
+  <section class="block wrap">
+    <div class="block-head">
+      <p class="label">Why it matters</p>
+      <h2>Most validation sets come from a handful of scanners.</h2>
+      <p>
+        Training and test data usually share the same hospitals and the same
+        machines, so a strong test score says little about the next site.
+        The gap shows up later, during a deployment or in front of a regulator,
+        when it is expensive to fix. An audit finds it while you can still act.
+      </p>
+    </div>
+    <div class="block-body">
+      <p class="label">When teams ask for one</p>
+      <ul class="rows">
+        <li><strong>Before a submission</strong><span>Evidence of how the model generalises across sites and scanners.</span></li>
+        <li><strong>Before a new site</strong><span>Check a hospital's scanners before the model goes live there.</span></li>
+        <li><strong>After a drop</strong><span>Performance fell somewhere and you need to know why.</span></li>
+        <li><strong>Before retraining</strong><span>Learn which scanners and protocols your next round of data should cover.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap">
+      <p class="label">Why not do it in-house</p>
+      <h2>Running the model is <em class="c-teal">the easy part</em>.</h2>
+      <p class="intro">
+        Any capable engineer, or an AI coding assistant, can run a model over a
+        folder of scans and print a number for each scanner. Whether that
+        number means anything depends on everything around it.
+      </p>
+
+      <div class="compare" role="table" aria-label="Quick in-house check compared with a Neuvara audit">
+        <div class="compare-head" role="row">
+          <span role="columnheader"></span>
+          <span role="columnheader">Quick in-house check</span>
+          <span role="columnheader">Neuvara audit</span>
+        </div>
+        <div class="compare-row" role="row">
+          <div class="k" role="rowheader">The scans</div>
+          <div class="them" role="cell">Whatever multi-site data is to hand, often one public set.</div>
+          <div class="us" role="cell">Curated multi-vendor and travelling-subject data, matched across scanners and checked scan by scan.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div class="k" role="rowheader">What normal looks like</div>
+          <div class="them" role="cell">Your model's numbers on their own.</div>
+          <div class="us" role="cell">Your model next to widely used open models on the same scans, so a real weakness stands out from ordinary scanner drift.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div class="k" role="rowheader">Why it moved</div>
+          <div class="them" role="cell">"Performance dropped on GE 1.5T."</div>
+          <div class="us" role="cell">Controlled tests that isolate bias field, contrast, resolution and noise, so you know which one is responsible.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div class="k" role="rowheader">The traps</div>
+          <div class="them" role="cell">Easy to miss: preprocessing mismatches, orientation and header errors, subjects shared between sets.</div>
+          <div class="us" role="cell">Checked on every audit, because each one can quietly invalidate a result.</div>
+        </div>
+        <div class="compare-row" role="row">
+          <div class="k" role="rowheader">The output</div>
+          <div class="them" role="cell">A notebook that makes sense to the person who ran it.</div>
+          <div class="us" role="cell">A report your clinical and regulatory leads can use as it is.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <div class="block-head">
+      <p class="label">What you get</p>
+      <h2>Answers you can act on, not one pooled score.</h2>
+      <p>
+        Every result is broken down so your team can see which scanners are
+        the problem and what to do about them.
+      </p>
+    </div>
+    <div class="block-body">
+      <ul class="rows">
+        <li><strong>Performance by scanner</strong><span>Broken down by vendor, field strength and protocol. On public data this measures consistency: whether the same brain gets the same result on every scanner. With your own labelled data, accuracy too.</span></li>
+        <li><strong>Reference comparison</strong><span>Where your model sits against widely used open models, scanner by scanner.</span></li>
+        <li><strong>The failure cases</strong><span>The individual scans where the model goes wrong, with the images, so your team can look.</span></li>
+        <li><strong>Likely physical causes</strong><span>Bias field, contrast, resolution, reconstruction. We say which ones are driving the shift.</span></li>
+        <li><strong>Recommendations</strong><span>What to change: data to collect, preprocessing to add, sites to watch.</span></li>
+        <li><strong>A written report</strong><span>Clear enough to hand to your clinical or regulatory lead as it is, plus a recorded walkthrough.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block-stack wrap">
+    <div class="block-head">
+      <p class="label">Rankings</p>
+      <h2>Every result, <em class="c-blue">in context</em>.</h2>
+      <p>
+        Your model is compared with ranked models tested on the same scans, so
+        you can tell an unusual weakness from drift every model shares, and
+        see where you are ahead.
+      </p>
+    </div>
+
+    <div class="ranks-box" data-rankings data-structure="whole" data-limit="5">
+      <div class="ranks-bar">
+        <p class="ranks-meta">Whole brain · top 5</p>
+        <p class="preview-tag">Preview · placeholder values</p>
+      </div>
+      <div class="ranks-scroll"><div class="ranks-slot"></div></div>
+      <div class="ranks-foot">
+        <a class="btn btn-ghost" href="/rankings/">See the full rankings <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="process">
+    <div class="wrap">
+      <p class="label">How it runs</p>
+      <h2 class="process-title">Five steps, priced up front.</h2>
+      <ol class="steps steps-5">
+        <li>
+          <span class="num">1</span>
+          <h3>Brief</h3>
+          <p>You fill in a short brief: the model, the task, the metric, and what you want answered.</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>Fixed quote</h3>
+          <p>We reply in writing with scope, price, timeline and an NDA. Questions are handled by email.</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>Access</h3>
+          <p>You send a container, or we run inside your environment. No patient data comes to us.</p>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <h3>Testing</h3>
+          <p>We run the model on public multi-vendor and travelling-subject data, and your held-out data if you have it.</p>
+        </li>
+        <li>
+          <span class="num">5</span>
+          <h3>Report</h3>
+          <p>The written report, the analysis code, and a recorded walkthrough. Follow-up questions by email.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <div class="block-head">
+      <p class="label">What we need from you</p>
+      <h2>Less than you might think.</h2>
+      <p>
+        We do not need your training data, and your model does not have to
+        leave your control.
+      </p>
+    </div>
+    <div class="block-body">
+      <ul class="rows">
+        <li><strong>The model</strong><span>As a container, or access to run it inside your environment.</span></li>
+        <li><strong>Its inputs</strong><span>The preprocessing it expects, so we feed it scans the way you do.</span></li>
+        <li><strong>The task</strong><span>What it predicts and the metric you report it on.</span></li>
+        <li><strong>Optional</strong><span>Held-out data from your own sites, kept in your environment.</span></li>
+      </ul>
+      <p class="scope"><span>Current scope</span>T1-weighted brain MRI · 1.5T and 3T · Siemens, GE, Philips. Segmentation and volumetric models. Other sequences by discussion.</p>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <div class="block-head">
+      <p class="label">Confidentiality</p>
+      <h2>Your model and your data stay <em class="c-teal">yours</em>.</h2>
+      <p>
+        Every audit runs under an NDA. We do not keep your model, your data or
+        anything derived from your own scans once the work is finished.
+      </p>
+      <p class="aside">
+        With your written permission, we keep results from the public-dataset
+        part of an audit, anonymised, for our own research. We never publish
+        anything that identifies you or your model, and you can say no.
+      </p>
+    </div>
+    <div class="block-body">
+      <ul class="rows">
+        <li><strong>Under NDA</strong><span>Every audit, from the first brief.</span></li>
+        <li><strong>Nothing kept</strong><span>Your model, your data and anything from your own scans are deleted when the work ends.</span></li>
+        <li><strong>Rankings</strong><span>Your model is only listed publicly if you choose, under your name or anonymised.</span></li>
+        <li><strong>Not a certification</strong><span>Technical evidence your regulatory team can use. Neuvara does not provide medical devices or regulatory approval.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta wrap">
+    <p class="label">Next step</p>
+    <h2>Start with a short brief.</h2>
+    <p>Tell us about the model and what you need to know. We reply in writing with a scope and a fixed price. No calls needed.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/contact/?topic=audit">Send a brief</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot">
+    <p class="foot-brand">Neuvara</p>
+    <p class="foot-note">Neuvara does not provide medical devices or clinical services.</p>
+    <p class="foot-links">
+      <a href="/audit/">Audit</a>
+      <a href="/rankings/">Rankings</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <span>&copy; 2026 Neuvara</span>
+    </p>
+  </div>
+</footer>
+
+<script src="/js/rankings-data.js" defer></script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

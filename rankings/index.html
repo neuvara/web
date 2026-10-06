@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cross-scanner rankings — Neuvara</title>
+<meta name="description" content="Brain MRI models ranked by how much their results change across scanners, measured on a hidden multi-scanner test set.">
+<meta property="og:title" content="Cross-scanner rankings — Neuvara">
+<meta property="og:description" content="Brain MRI models ranked by robustness across scanners.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neuvara.org/rankings/">
+<meta name="theme-color" content="#07111f">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<noscript><link rel="stylesheet" href="/css/noscript.css"></noscript>
+</head>
+<body>
+
+<header class="site-bar">
+  <div class="site wrap has-menu">
+    <a class="brand" href="/" aria-label="Neuvara home">
+      <img src="/logo.png" alt="" width="26" height="26">
+      <span>Neuvara</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="menu-icon" aria-hidden="true"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="primary-nav" aria-label="Primary">
+      <a href="/audit/">Audit</a>
+      <a href="/rankings/" aria-current="page">Rankings</a>
+      <a href="/#data">Data preparation</a>
+      <a href="/#team">Team</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero page-hero-solo wrap">
+    <div>
+      <p class="label">Rankings</p>
+      <h1>How brain MRI models hold up <em class="c-blue">across scanners</em>.</h1>
+      <p class="lede">
+        We run brain MRI models on the same people scanned on many different
+        scanners, and rank them by how much their results change. The test
+        scans are never released, so no model can be tuned to them.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/contact/?topic=rankings">Submit a model</a>
+        <a class="btn btn-ghost" href="#method">How it works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap ranks-section">
+    <p class="preview-note"><span>Preview</span>These values are placeholders that show the layout. The first round of results will be published here.</p>
+
+    <div class="ranks-box" data-rankings data-structure="whole">
+      <div class="ranks-bar">
+        <div class="tabs" role="group" aria-label="Brain structure">
+          <button type="button" data-tab="whole" aria-pressed="true">Whole brain</button>
+          <button type="button" data-tab="hippocampus" aria-pressed="false">Hippocampus</button>
+          <button type="button" data-tab="ventricles" aria-pressed="false">Ventricles</button>
+        </div>
+        <p class="ranks-meta">Round 1 · T1-weighted · 1.5T and 3T · Siemens, GE, Philips</p>
+      </div>
+      <div class="ranks-scroll"><div class="ranks-slot"></div></div>
+    </div>
+  </section>
+
+  <section id="method" class="block wrap">
+    <div class="block-head">
+      <p class="label">What the numbers mean</p>
+      <h2>One brain, many scanners, <em class="c-teal">one answer</em>.</h2>
+      <p>
+        Each person in the test set is scanned on every scanner, so their
+        anatomy is identical throughout. Any change in a model's output from
+        one scanner to the next comes from the scanner, not the brain.
+      </p>
+    </div>
+    <div class="block-body">
+      <ul class="rows">
+        <li><strong>Cross-scanner variation</strong><span>How much a structure's measured volume changes for the same person across scanners. Models are ranked on this. Lower is better.</span></li>
+        <li><strong>Agreement</strong><span>How closely the segmentations of the same brain match between scanners, as a Dice score where 1 means identical. Higher is better.</span></li>
+        <li><strong>Worst scanner</strong><span>The largest average offset on any single scanner, as a share of the person's average volume. Shows whether one scanner is a problem.</span></li>
+        <li><strong>Scanners</strong><span>How many scanners the model was tested on.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="wrap">
+      <p class="label">Getting ranked</p>
+      <h2 class="process-title">Private first. Public <em class="c-purple">only if you choose</em>.</h2>
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <h3>Submit</h3>
+          <p>Send your model as a container. Open-source models we run ourselves.</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>Private results</h3>
+          <p>We run it on the hidden test set and send you the results before anyone else sees them.</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>Your choice</h3>
+          <p>Appear under your name, appear anonymised, or not appear at all.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="cta wrap">
+    <p class="label">Next step</p>
+    <h2>See where your model ranks.</h2>
+    <p>Submit a model for the next round, or get the full audit for the detail behind the number: which scanners, which scans, and why.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/contact/?topic=rankings">Submit a model</a>
+      <a class="btn btn-ghost" href="/audit/">See the audit <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot">
+    <p class="foot-brand">Neuvara</p>
+    <p class="foot-note">Neuvara does not provide medical devices or clinical services.</p>
+    <p class="foot-links">
+      <a href="/audit/">Audit</a>
+      <a href="/rankings/">Rankings</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <span>&copy; 2026 Neuvara</span>
+    </p>
+  </div>
+</footer>
+
+<script src="/js/rankings-data.js" defer></script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

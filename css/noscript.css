@@ -1,0 +1,10 @@
+/* Loaded only when JavaScript is off: show the nav links instead of the menu button. */
+.has-menu .menu-toggle { display: none !important; }
+.has-menu nav {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem !important;
+  padding-bottom: 0.75rem;
+}
+.has-menu nav a { padding: 0.25rem 0 !important; border: 0 !important; font-size: 0.9rem !important; }

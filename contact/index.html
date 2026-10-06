@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Neuvara</title>
+<meta name="description" content="Tell Neuvara about your MRI model or dataset. Cross-scanner audits and multi-site data preparation for imaging AI teams.">
+<meta property="og:title" content="Contact — Neuvara">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neuvara.org/contact/">
+<meta name="theme-color" content="#07111f">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<noscript><link rel="stylesheet" href="/css/noscript.css"></noscript>
+</head>
+<body>
+
+<header class="site-bar">
+  <div class="site wrap has-menu">
+    <a class="brand" href="/" aria-label="Neuvara home">
+      <img src="/logo.png" alt="" width="26" height="26">
+      <span>Neuvara</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="menu-icon" aria-hidden="true"></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav id="primary-nav" aria-label="Primary">
+      <a href="/audit/">Audit</a>
+      <a href="/rankings/">Rankings</a>
+      <a href="/#data">Data preparation</a>
+      <a href="/#team">Team</a>
+      <a href="/contact/" aria-current="page">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="contact wrap">
+    <div class="contact-head">
+      <p class="label">Contact</p>
+      <h1>Tell us what you are <em class="c-teal">working on</em>.</h1>
+      <p>
+        Everything runs in writing, no calls needed. Your message is the
+        brief: we reply by email with questions or a fixed quote.
+      </p>
+      <p class="note">
+        Please do not include patient data, images or anything that could
+        identify a patient.
+      </p>
+      <p class="note">
+        Prefer email? Write to
+        <button class="copy" type="button" data-copy="contact@neuvara.org">contact@neuvara.org</button>
+      </p>
+    </div>
+
+    <form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <!-- Paste your Web3Forms access key below (free at web3forms.com) -->
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+      <input type="hidden" name="subject" value="New enquiry from neuvara.org">
+      <input type="hidden" name="from_name" value="Neuvara website">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="field-row">
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" autocomplete="name" required maxlength="120">
+        </label>
+        <label class="field">
+          <span>Work email</span>
+          <input type="email" name="email" autocomplete="email" required maxlength="200">
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Organisation <em>optional</em></span>
+          <input type="text" name="organisation" autocomplete="organization" maxlength="160">
+        </label>
+        <label class="field">
+          <span>What is it about</span>
+          <select name="topic" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Cross-scanner audit</option>
+            <option>Multi-site data preparation</option>
+            <option>Rankings submission</option>
+            <option>Something else</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Message</span>
+        <textarea name="message" rows="8" required maxlength="5000" aria-describedby="brief-hint"></textarea>
+        <small id="brief-hint" class="hint">For an audit, tell us: what the model does, the scans it takes, the metric you report, which scanners you have tested on, and what you want to find out. For data work: how many scans, from how many sites, and what state they are in.</small>
+      </label>
+
+      <div class="form-foot">
+        <button class="btn btn-primary" type="submit">Send message</button>
+        <p class="form-small">We use what you send only to reply. See our <a href="/privacy/">privacy policy</a>.</p>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot">
+    <p class="foot-brand">Neuvara</p>
+    <p class="foot-note">Neuvara does not provide medical devices or clinical services.</p>
+    <p class="foot-links">
+      <a href="/audit/">Audit</a>
+      <a href="/rankings/">Rankings</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <span>&copy; 2026 Neuvara</span>
+    </p>
+  </div>
+</footer>
+
+<script src="/js/main.js" defer></script>
+</body>
+</html>
